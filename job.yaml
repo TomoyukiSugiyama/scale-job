@@ -10,6 +10,7 @@ spec:
       containers:
       - name: scale-job
         image: curlimages/curl
+        imagePullPolicy: IfNotPresent
         command: ["/scripts/job.sh"]
         volumeMounts:
           - name: my-kubernetes-job-volume
