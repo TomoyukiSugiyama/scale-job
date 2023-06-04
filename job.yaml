@@ -1,0 +1,22 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: scale-job
+spec:
+  backoffLimit: 4
+  template:
+    spec:
+      serviceAccountName: job-account
+      containers:
+      - name: scale-job
+        image: curlimages/curl
+        command: ["/scripts/job.sh"]
+        volumeMounts:
+          - name: my-kubernetes-job-volume
+            mountPath: /scripts
+      volumes:
+        - name: my-kubernetes-job-volume
+          configMap:
+            name: kubernetes-curl-job-script
+            defaultMode: 0777
+      restartPolicy: Never
