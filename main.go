@@ -10,11 +10,11 @@ import (
 func main() {
 
 	sample := prometheus.NewCounter(prometheus.CounterOpts{
-		Name: "my_custom_metric",
+		Name: "some_metric",
 		Help: "my custom metrics",
 	})
-	sample.Inc()
-	if err := push.New("http://localhost:9091", "my_job").
+	sample.Add(3)
+	if err := push.New("http://localhost:9091", "some_job").
 		Collector(sample).
 		Push(); err != nil {
 		fmt.Printf(err.Error())
